@@ -1,5 +1,7 @@
 package com.nikhil.entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,7 +19,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @Entity
-public class Book {
+public class Book implements Serializable {
 	
 	@Id
 	@Column(name = "Book_Id")

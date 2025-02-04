@@ -30,6 +30,7 @@ public class BookServiceImpl implements BookService {
 	Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
 
 	@Override
+	@CachePut(value = "book", key = "#book.bookId")
 	public Book createBook(Book book) {
 		
 		// set book id
@@ -43,7 +44,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@CachePut(cacheNames = "book", key = "#bookId")
+	@CachePut(value = "book", key = "#bookId")
 	public Book updateBook(Book book, String bookId) {
 		
 		Book bookById = bookRepo.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found with given Id "+bookId));
@@ -58,7 +59,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@CacheEvict(cacheNames = "book", key = "#bookId")
+	@CacheEvict(value = "book", key = "#bookId")
 	public void deleteBook(String bookId) {
 		
 		Book bookById = bookRepo.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found with given Id "+bookId));
@@ -70,7 +71,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = "book", key = "#bookId")
+	@Cacheable(value = "book", key = "#bookId")
 	public Book getBookById(String bookId) {
 		
 		logger.info("Fetching Book From Data-Base");
@@ -81,11 +82,12 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "book")
 	public List<Book> getAllBook() {
 		
 		List<Book> allBooks = bookRepo.findAll();
 		
-		logger.info("Successfully Fetch All Books");
+		logger.info("Successfully Fetch All Books From DB");
 		
 		return allBooks;
 	}
@@ -106,7 +108,6 @@ public class BookServiceImpl implements BookService {
 		return peginationResponse;
 	}
 
-	
 
 }
 
