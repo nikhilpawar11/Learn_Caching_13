@@ -26,5 +26,4 @@ public interface BookService {
 	PegiableResponse<Book> getAllBooksWithPegination (int pageNumber, int pageSize, String sortBy, String sortDir);
 	
 	
-
 }

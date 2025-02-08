@@ -7,4 +7,5 @@ import com.nikhil.entity.Book;
 public interface BookRepository extends JpaRepository<Book, String> {
 	
 	
+	
 }
